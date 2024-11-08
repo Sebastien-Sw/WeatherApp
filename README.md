@@ -3,8 +3,8 @@ First major project, weather app with real time data from Open Weather API. Incl
 
 Upcoming Features :
 
-Link to more indepth weather info
+    Link to more indepth weather info
 
-Change the temperature symbol
+    Change the temperature symbol
 
-Colour scheme
+    Colour scheme
