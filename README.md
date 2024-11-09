@@ -1,7 +1,9 @@
 # WeatherApp
 First major project, weather app with real time data from Open Weather API. Includes other interesting features
 
-To Use : Download the latest version of "Weather App.zip"
+To Use :
+- Download the latest version of "Weather App.zip"
+- Older versions of the application are not guarenteed
 
 Upcoming Features :
 
