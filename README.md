@@ -1,5 +1,9 @@
 # WeatherApp
-First major project, weather app with real time data from Open Weather API. Includes other interesting features
+First major project, weather app with real time data from Open Weather API. Includes other interesting features.
+Base code for this application is from a tutorial from Bro Code.
+
+Link : https://youtu.be/Q4377DH5Jso?si=73qdxT9T34z4U_il
+
 
 Key Information :
 Weather App uses Ubuntu Font, and it must be downloaded before using the application. Ubuntu can be dowloaded and installed from Google Fonts.
