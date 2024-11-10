@@ -12,7 +12,7 @@ Link to Ubuntu Font : https://fonts.google.com/specimen/Ubuntu
 
 To Use :
 - Download the latest version of "Weather App.zip"
-- Older versions of the application are not guarenteed
+- Older versions of the application are not guarenteed to work
 
 Upcoming Features :
 
