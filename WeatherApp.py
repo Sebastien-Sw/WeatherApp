@@ -4,6 +4,7 @@
 #   Text Main : hsl(45, 29%, 97%)
 #   Text Alternate : hsl(218, 20%, 23%)
 
+import Settings_Menu
 import webbrowser
 import sys
 import requests
@@ -109,7 +110,7 @@ class Weather_App(QWidget) :
 
         # Styling
         self.setStyleSheet("""
-                    background-color : hsl(45, 29%, 97%) ;
+            background-color : hsl(45, 29%, 97%) ;
             """)
 
         self.city_label.setFixedHeight(100)
@@ -155,19 +156,23 @@ class Weather_App(QWidget) :
             """)
 
         self.settings_button.setStyleSheet("""
-            color : hsl(45, 29%, 97%) ;
-            padding : 10px ;
-            border : 3px solid orange ;
-            border-color : hsl(13, 81%, 61%) ;
-            border-radius : 15px ;
-            background-color : hsl(13, 81%, 61%) ;
-            text-align : center ;
+            QPushButton{
+                color : hsl(45, 29%, 97%) ;
+                padding : 10px ;
+                border : 3px solid orange ;
+                border-color : hsl(13, 81%, 61%) ;
+                border-radius : 15px ;
+                background-color : hsl(13, 81%, 61%) ;
+                text-align : center ;
+            }
             """)
 
 
         self.get_weather_button.clicked.connect(self.get_weather)
 
         self.weather_image.clicked.connect(self.further_weather)
+
+        self.settings_button.clicked.connect(self.open_settings_menu)
 
     def get_weather(self) :
         api_key = "5c9b15efd16228987a83e6e3f992d894"
@@ -295,6 +300,10 @@ class Weather_App(QWidget) :
 
     def further_weather(self) :
         webbrowser.open("https://openweathermap.org/", 2, True)
+
+    def open_settings_menu(self) :
+        self.settings_window = Settings_Menu.Settings_Menu(self)
+        self.settings_window.show()
 
 def main() :
     app = QApplication(sys.argv)
