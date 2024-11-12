@@ -6,7 +6,7 @@ Link : https://youtu.be/Q4377DH5Jso?si=73qdxT9T34z4U_il
 
 
 Key Information :
-Weather App uses Ubuntu Font, and it must be downloaded before using the application. Ubuntu can be dowloaded and installed from Google Fonts.
+Weather App uses Ubuntu Font, and it must be downloaded before using the application. Ubuntu can be dowloaded and installed from Google Fonts. You need to install Ubuntu Regular and Ubuntu Medium
 
 Link to Ubuntu Font : https://fonts.google.com/specimen/Ubuntu
 
