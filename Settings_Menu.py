@@ -1,14 +1,12 @@
 import sys
 import requests
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout
-from PyQt5.QtCore import Qt, QSize
+from PyQt5.QtCore import Qt, QSize, pyqtSignal
 from PyQt5.QtGui import QIcon, QFont, QFontDatabase
 
 class Settings_Menu(QWidget) :
     def __init__ (self, weather_app_window) :
         super().__init__()
-        self.weather_app_window = weather_app_window
-
         self.setWindowIcon(QIcon("D:/Dev/Git/WeatherApp/Weather App Assets/Settings Menu Icon.png"))
 
         self.setGeometry(725, 150, 450, 800)
@@ -70,25 +68,35 @@ class Settings_Menu(QWidget) :
 
         # Fonts
 
-        # Header Font
-        Ubuntu_Header = QFont("Ubuntu Regular", 30, QFont.Bold, True)
-        self.header_label.setFont(Ubuntu_Header)
+        # Import Fonts from Asset folder
+        Ubuntu_Bold_Italic_id = QFontDatabase.addApplicationFont("Weather App Assets/Fonts/Ubuntu-Regular.ttf")
+        Ubuntu_Bold_id = QFontDatabase.addApplicationFont("Weather App Assets/Fonts/Ubuntu-Regular.ttf")
+        Ubuntu_Bold_Smaller_id = QFontDatabase.addApplicationFont("Weather App Assets/Fonts/Ubuntu-Regular.ttf")
+        Ubuntu_Medium_id = QFontDatabase.addApplicationFont("Weather App Assets/Fonts/Ubuntu-Medium.ttf")
 
-        Ubuntu_Medium = QFont("Ubuntu Medium", 20, QFont.Bold)
+        # Check for compatibility
+        Ubuntu_Bold_Italic_family = QFontDatabase.applicationFontFamilies(Ubuntu_Bold_Italic_id)[0]
+        Ubuntu_Bold_family = QFontDatabase.applicationFontFamilies(Ubuntu_Bold_id)[0]
+        Ubuntu_Bold_Smaller_family = QFontDatabase.applicationFontFamilies(Ubuntu_Bold_Smaller_id)[0]
+        Ubuntu_Medium_family = QFontDatabase.applicationFontFamilies(Ubuntu_Medium_id)[0]
+
+        # Assign family to a font
+        Ubuntu_Bold_Italic = QFont(Ubuntu_Bold_Italic_family, 30, QFont.Bold, True)
+        Ubuntu_Bold = QFont(Ubuntu_Bold_family, 17, QFont.Bold)
+        Ubuntu_Bold_Smaller = QFont(Ubuntu_Bold_Smaller_family, 15, QFont.Bold)
+        Ubuntu_Medium = QFont(Ubuntu_Medium_family, 20, QFont.Bold)
+
+        self.header_label.setFont(Ubuntu_Bold_Italic)
         self.temperature_scale_label.setFont(Ubuntu_Medium)
         self.colour_scheme_label.setFont(Ubuntu_Medium)
         self.city_input_method_label.setFont(Ubuntu_Medium)
-
-        Ubuntu_Bold = QFont("Ubuntu Regular", 17, QFont.Bold)
         self.close_button.setFont(Ubuntu_Bold)
-
-        Ubuntu_Bold_Small = QFont("Ubuntu Regular", 15, QFont.Bold)
-        self.celcius_scale_button.setFont(Ubuntu_Bold_Small)
-        self.fahrenheit_scale_button.setFont(Ubuntu_Bold_Small)
-        self.light_mode_button.setFont(Ubuntu_Bold_Small)
-        self.dark_mode_button.setFont(Ubuntu_Bold_Small)
-        self.city_name_button.setFont(Ubuntu_Bold_Small)
-        self.city_id_button.setFont(Ubuntu_Bold_Small)
+        self.celcius_scale_button.setFont(Ubuntu_Bold_Smaller)
+        self.fahrenheit_scale_button.setFont(Ubuntu_Bold_Smaller)
+        self.light_mode_button.setFont(Ubuntu_Bold_Smaller)
+        self.dark_mode_button.setFont(Ubuntu_Bold_Smaller)
+        self.city_name_button.setFont(Ubuntu_Bold_Smaller)
+        self.city_id_button.setFont(Ubuntu_Bold_Smaller)
 
         # Styling
         self.setStyleSheet("""
@@ -239,7 +247,7 @@ class Settings_Menu(QWidget) :
         self.close()
 
     def set_celcius(self) :
-        pass
+       pass
 
     def set_fahrenheit(self) :
         pass

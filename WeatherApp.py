@@ -9,7 +9,7 @@ import webbrowser
 import sys
 import requests
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout
-from PyQt5.QtCore import Qt, QSize
+from PyQt5.QtCore import Qt, QSize, pyqtSignal
 from PyQt5.QtGui import QIcon, QFont, QFontDatabase, QPixmap
 
 class Weather_App(QWidget) :
@@ -24,30 +24,39 @@ class Weather_App(QWidget) :
         self.weather_image = QPushButton(self)
         self.description_label = QLabel(self)
         self.settings_button = QPushButton("Settings")
+
         self.initUI()
 
     def initUI(self) :
         self.setWindowTitle("Weather App")
 
-        # City Label Font
-        Ubuntu_Bold_Italic = QFont("Ubuntu Regular", 30, QFont.Bold, True)
+        # Import Fonts from Asset folder
+        Ubuntu_Bold_Italic_id = QFontDatabase.addApplicationFont("Weather App Assets/Fonts/Ubuntu-Regular.ttf")
+        Ubuntu_id = QFontDatabase.addApplicationFont("Weather App Assets/Fonts/Ubuntu-Regular.ttf")
+        Ubuntu_Bold_id = QFontDatabase.addApplicationFont("Weather App Assets/Fonts/Ubuntu-Regular.ttf")
+        Ubuntu_Bold_Bigger_id = QFontDatabase.addApplicationFont("Weather App Assets/Fonts/Ubuntu-Regular.ttf")
+        Ubuntu_Medium_id = QFontDatabase.addApplicationFont("Weather App Assets/Fonts/Ubuntu-Medium.ttf")
+
+        # Check for compatibility
+        Ubuntu_Bold_Italic_family = QFontDatabase.applicationFontFamilies(Ubuntu_Bold_Italic_id)[0]
+        Ubuntu_family = QFontDatabase.applicationFontFamilies(Ubuntu_id)[0]
+        Ubuntu_Bold_family = QFontDatabase.applicationFontFamilies(Ubuntu_Bold_id)[0]
+        Ubuntu_Bold_Bigger_family = QFontDatabase.applicationFontFamilies(Ubuntu_Bold_Bigger_id)[0]
+        Ubuntu_Medium_family = QFontDatabase.applicationFontFamilies(Ubuntu_Medium_id)[0]
+
+        # Assign family to a font
+        Ubuntu_Bold_Italic = QFont(Ubuntu_Bold_Italic_family, 30, QFont.Bold, True)
+        Ubuntu = QFont(Ubuntu_family, 28)
+        Ubuntu_Bold = QFont(Ubuntu_Bold_family, 17, QFont.Bold)
+        Ubuntu_Bold_Bigger = QFont(Ubuntu_Bold_Bigger_family, 50, QFont.Bold)
+        Ubuntu_Medium = QFont(Ubuntu_Medium_family, 25)
+
+        # Set fonts
         self.city_label.setFont(Ubuntu_Bold_Italic)
-
-        # City Input Font
-        Ubuntu = QFont("Ubuntu", 28)
         self.city_input.setFont(Ubuntu)
-
-        # Get Weather Button Font
-        Ubuntu_Bold = QFont("Ubuntu Regular", 17, QFont.Bold)
         self.get_weather_button.setFont(Ubuntu_Bold)
         self.settings_button.setFont(Ubuntu_Bold)
-
-        # Temperature Label Font
-        Ubuntu_Bold_Bigger = QFont("Ubuntu Regular", 50, QFont.Bold)
         self.temperature_label.setFont(Ubuntu_Bold_Bigger)
-
-        # Description Label Font
-        Ubuntu_Medium = QFont("Ubuntu Medium", 25)
         self.description_label.setFont(Ubuntu_Medium)
 
         # Main Layout for the App
@@ -231,12 +240,13 @@ class Weather_App(QWidget) :
     def display_weather(self, data) :
         self.temperature_label.setStyleSheet("font-size : 75px")
         temperature_kelvin = data["main"]["temp"]
-        temperature_celsius = temperature_kelvin - 273.15
-        temperature_fahrenheit = (temperature_kelvin * 9/5) - 459.67
+        self.temperature_celsius = temperature_kelvin - 273.15
+        self.temperature_fahrenheit = (temperature_kelvin * 9/5) - 459.67
 
         weather_id = data["weather"][0]["id"]
 
         weather_description = data["weather"][0]["description"]
+
         description = weather_description.split(' ')
         capitalised_words = []
         for word in description :
@@ -244,7 +254,7 @@ class Weather_App(QWidget) :
             capitalised_words.append(new_word)
         description_complete = ' '.join(capitalised_words)
 
-        self.temperature_label.setText(f"{temperature_celsius:.0f}℃")
+        self.temperature_label.setText(f"{self.temperature_celsius:.0f}℃")
         self.temperature_label.setStyleSheet("""
         color : hsl(218, 20%, 23%) ;
         """)
